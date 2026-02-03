@@ -12,13 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('animales', function (Blueprint $table) {
-            $table->id();
+            $table->id('id_animal');
             $table->string('nombre');
             $table->string('tipo', ['perro', 'gato', 'ave', 'conejo']);
             $table->decimal('peso', 8, 2)->nullable();
             $table->string('enfermedad')->nullable();
             $table->text('comentarios')->nullable();
-            $table->foreignId('dueno_id')->constrained('duenos');
+            $table->foreignId('dueno_id')->references('id')->on('duenos')->onDelete('cascade');
             $table->timestamps();
         });
     }
