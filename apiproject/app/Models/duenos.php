@@ -21,6 +21,6 @@ class duenos extends Model
     // Un dueño puede tener muchos animales
     public function animales()
     {
-        return $this->hasMany(Animales::class);
+        return $this->hasMany(animales::class);
     }
 }
