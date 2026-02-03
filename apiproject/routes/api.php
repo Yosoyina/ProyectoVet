@@ -8,3 +8,12 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 
+/*
+
+composer install
+
+php artisan migrate
+
+php artisan key:generate
+
+*/
