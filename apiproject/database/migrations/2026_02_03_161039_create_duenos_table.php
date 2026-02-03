@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id('id_persona');
             $table->string('nombre');
             $table->string('apellido');
-            $table->foreignId('id_animal')->references('id')->on('animales')->onDelete('cascade');
+            $table->foreignId('id_animal')->references('id_animal')->on('animales')->onDelete('cascade');
             $table->timestamps();
         });
     }

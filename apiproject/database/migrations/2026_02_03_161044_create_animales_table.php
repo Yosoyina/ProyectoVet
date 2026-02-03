@@ -18,7 +18,6 @@ return new class extends Migration
             $table->decimal('peso', 8, 2)->nullable();
             $table->string('enfermedad')->nullable();
             $table->text('comentarios')->nullable();
-            $table->foreignId('dueno_id')->references('id')->on('duenos')->onDelete('cascade');
             $table->timestamps();
         });
     }

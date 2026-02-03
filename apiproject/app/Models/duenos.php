@@ -24,3 +24,5 @@ class duenos extends Model
         return $this->hasMany(animales::class);
     }
 }
+
+// php artisan make:model duenos -mcr  te lo crea todo el modelo, migracion, controlador y recurso
