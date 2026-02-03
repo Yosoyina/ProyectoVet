@@ -19,10 +19,11 @@ class AnimalesController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'nombre' => 'required|string|max:255',
-            'tipo' => 'required|in:perro,gato,ave,conejo',
+            'tipo' => 'required|in:perro,gato,hámster,conejo',
             'peso' => 'nullable|numeric|min:0',
             'enfermedad' => 'nullable|string|max:255',
             'comentarios' => 'nullable|string',
+            'dueno_id' => 'required|exists:duenos,id',
         ]);
 
         if ($validator->fails()) {
@@ -62,10 +63,11 @@ class AnimalesController extends Controller
 
         $validator = Validator::make($request->all(), [
             'nombre' => 'sometimes|required|string|max:255',
-            'tipo' => 'sometimes|required|in:perro,gato,ave,conejo',
+            'tipo' => 'sometimes|required|in:perro,gato,hámster,conejo',
             'peso' => 'nullable|numeric|min:0',
             'enfermedad' => 'nullable|string|max:255',
             'comentarios' => 'nullable|string',
+            'dueno_id' => 'sometimes|required|exists:duenos,id',
         ]);
 
         if ($validator->fails()) {

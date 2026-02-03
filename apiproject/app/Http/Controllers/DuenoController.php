@@ -21,7 +21,6 @@ class DuenoController extends Controller
         $validator = Validator::make($request->all(), [
             'nombre' => 'required|string|max:255',
             'apellido' => 'required|string|max:255',
-            'id_animal' => 'required|exists:animales,id_animal',
         ]);
 
         if ($validator->fails()) {
@@ -62,7 +61,6 @@ class DuenoController extends Controller
         $validator = Validator::make($request->all(), [
             'nombre' => 'sometimes|required|string|max:255',
             'apellido' => 'sometimes|required|string|max:255',
-            'id_animal' => 'sometimes|required|exists:animales,id_animal',
         ]);
 
         if ($validator->fails()) {

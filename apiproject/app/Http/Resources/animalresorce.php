@@ -17,14 +17,14 @@ class animalresorce extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id_animal' => $this->id_animal,
+            'id' => $this->id,
             'nombre' => $this->nombre,
             'tipo' => $this->tipo,
             'peso' => $this->peso,
             'enfermedad' => $this->enfermedad,
             'comentarios' => $this->comentarios,
+            'dueno_id' => $this->dueno_id,
         ];
     }
 }
 
-// 

@@ -15,7 +15,7 @@ class duenoresorce extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id_persona' => $this->id_persona,
+            'id_persona' => $this->id,
             'nombre' => $this->nombre,
             'apellido' => $this->apellido,
         ];
