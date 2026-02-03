@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('duenos', function (Blueprint $table) {
             $table->id();
+            $table->string('nombre');
+            $table->string('apellido');
             $table->timestamps();
         });
     }

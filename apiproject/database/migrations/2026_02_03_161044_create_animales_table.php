@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('animales', function (Blueprint $table) {
             $table->id();
+            $table->string('nombre');
+            $table->string('tipo', ['perro', 'gato', 'ave', 'conejo']);
+            $table->decimal('peso', 8, 2)->nullable();
+            $table->string('enfermedad')->nullable();
+            $table->text('comentarios')->nullable();
+            $table->foreignId('dueno_id')->constrained('duenos');
             $table->timestamps();
         });
     }
