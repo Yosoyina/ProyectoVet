@@ -1,0 +1,211 @@
+{
+  "info": {
+    "_postman_id": "873eae0b-b53e-40b7-9799-62f901994ae1",
+    "name": "New Collection",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "52079306",
+    "_collection_link": "https://go.postman.co/collection/52079306-873eae0b-b53e-40b7-9799-62f901994ae1?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "duenos",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8000/api/duenos",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "duenos"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "animales",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8000/api/animales",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "animales"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Nuevo Animal",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"nombre\": \"Copito\",\r\n    \"tipo\": \"conejo\",\r\n    \"peso\": 1.8,\r\n    \"enfermedad\": null,\r\n    \"comentarios\": \"Vacunado al día\",\r\n    \"dueno_id\": 3\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8000/api/animales",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "animales"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Nuevo Dueno",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"nombre\": \"Maria\",\r\n    \"apellido\": \"Pereira\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8000/api/duenos",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "duenos"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Modificacion de  Animal",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"nombre\": \"Copito\",\r\n    \"tipo\": \"conejo\",\r\n    \"peso\": 1.8,\r\n    \"enfermedad\": \"cancer\",\r\n    \"comentarios\": \"nada\",\r\n    \"dueno_id\": 3\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8000/api/animales/1",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "animales",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Nuevo Dueno",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"nombre\": \"Pedro\",\r\n    \"apellido\": \"López\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8000/api/duenos/1",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "duenos",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
