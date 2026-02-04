@@ -9,19 +9,27 @@ use Illuminate\Support\Facades\Validator;
 
 class AnimalesController extends Controller
 {
+
+    //Esta funcion nos mustra una lista del los animales
+
     public function index()
     {
         $animales = animales::all();
         return animalresorce::collection($animales);
     }
 
+
+    /*
+     * Almacena un nuevo animales en la base de datos.
+    */
+
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'nombre' => 'required|string|max:255',
+            'nombre' => 'required|string|max:25',
             'tipo' => 'required|in:perro,gato,hámster,conejo',
             'peso' => 'nullable|numeric|min:0',
-            'enfermedad' => 'nullable|string|max:255',
+            'enfermedad' => 'nullable|string|max:25',
             'comentarios' => 'nullable|string',
             'dueno_id' => 'required|exists:duenos,id',
         ]);
@@ -38,6 +46,8 @@ class AnimalesController extends Controller
         return new animalresorce($animal);
     }
 
+    // Esta funcion lo que hace es mostarnos el animales especifico por la ID
+
     public function show(string $id)
     {
         $animal = animales::find($id);
@@ -51,6 +61,8 @@ class AnimalesController extends Controller
         return new animalresorce($animal);
     }
 
+    //Esta funcion nos actualiza lso datos del animales
+
     public function update(Request $request, string $id)
     {
         $animal = animales::find($id);
@@ -62,7 +74,7 @@ class AnimalesController extends Controller
         }
 
         $validator = Validator::make($request->all(), [
-            'nombre' => 'sometimes|required|string|max:255',
+            'nombre' => 'sometimes|required|string|max:25',
             'tipo' => 'sometimes|required|in:perro,gato,hámster,conejo',
             'peso' => 'nullable|numeric|min:0',
             'enfermedad' => 'nullable|string|max:255',
@@ -81,6 +93,8 @@ class AnimalesController extends Controller
 
         return new animalresorce($animal);
     }
+
+    // En esta funcion eliminamos el animal por su ID
 
     public function destroy(string $id)
     {

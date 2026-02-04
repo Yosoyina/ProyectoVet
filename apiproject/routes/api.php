@@ -15,13 +15,3 @@ Route::apiResource('animales', AnimalesController::class);
 // Rutas para Dueños
 Route::apiResource('duenos', DuenoController::class);
 
-
-/*
-
-composer install
-
-php artisan migrate
-
-php artisan key:generate
-
-*/

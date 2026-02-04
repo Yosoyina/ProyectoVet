@@ -10,17 +10,24 @@ use Illuminate\Support\Facades\Validator;
 
 class DuenoController extends Controller
 {
+
+    //Esta funcion nos mustra una lista del los dueños
+    
     public function index()
     {
         $duenos = duenos::all();
         return duenoresorce::collection($duenos);
     }
 
+    
+    //Esta funcion almacena un nuevo dueño en la base de datos.
+    
+
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'nombre' => 'required|string|max:255',
-            'apellido' => 'required|string|max:255',
+            'nombre' => 'required|string|max:25',
+            'apellido' => 'required|string|max:25',
         ]);
 
         if ($validator->fails()) {
@@ -35,6 +42,8 @@ class DuenoController extends Controller
         return new duenoresorce($dueno);
     }
 
+    // Esta funcion lo que hace es mostarnos el dueño especifico por la ID
+
     public function show(string $id)
     {
         $dueno = duenos::find($id);
@@ -48,6 +57,9 @@ class DuenoController extends Controller
         return new duenoresorce($dueno);
     }
 
+
+    //Esta funcion nos actualiza los datos del dueño
+
     public function update(Request $request, string $id)
     {
         $dueno = duenos::find($id);
@@ -59,8 +71,8 @@ class DuenoController extends Controller
         }
 
         $validator = Validator::make($request->all(), [
-            'nombre' => 'sometimes|required|string|max:255',
-            'apellido' => 'sometimes|required|string|max:255',
+            'nombre' => 'sometimes|required|string|max:25',
+            'apellido' => 'sometimes|required|string|max:25',
         ]);
 
         if ($validator->fails()) {
@@ -74,6 +86,9 @@ class DuenoController extends Controller
 
         return new duenoresorce($dueno);
     }
+
+    // En esta funcion eliminamos el dueño por su ID
+
 
     public function destroy(string $id)
     {
