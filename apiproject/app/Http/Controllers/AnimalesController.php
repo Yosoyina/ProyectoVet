@@ -6,110 +6,159 @@ use App\Models\animales;
 use App\Http\Resources\animalresorce;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Exception;
+use Illuminate\Support\Facades\Log;
 
 class AnimalesController extends Controller
 {
-
-    //Esta funcion nos mustra una lista del los animales
-
+    /**
+     * Esta funcion nos muestra una lista de los animales
+     */
     public function index()
     {
-        $animales = animales::all();
-        return animalresorce::collection($animales);
+        try {
+            $animales = animales::all();
+            return animalresorce::collection($animales);
+            
+        } catch (Exception $e) {
+            Log::error('Error al obtener lista de animales: ' . $e->getMessage());
+            return response()->json([
+                'message' => 'Error al obtener la lista de animales',
+                'error' => $e->getMessage()
+            ], 500);
+        }
     }
 
-
-    /*
-     * Almacena un nuevo animales en la base de datos.
-    */
-
+    /**
+     * Almacena un nuevo animal en la base de datos
+     */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'nombre' => 'required|string|max:25',
-            'tipo' => 'required|in:perro,gato,hámster,conejo',
-            'peso' => 'nullable|numeric|min:0',
-            'enfermedad' => 'nullable|string|max:25',
-            'comentarios' => 'nullable|string',
-            'dueno_id' => 'required|exists:duenos,id',
-        ]);
+        try {
+            $validator = Validator::make($request->all(), [
+                'nombre' => 'required|string|max:25',
+                'tipo' => 'required|in:perro,gato,hámster,conejo',
+                'peso' => 'nullable|numeric|min:0',
+                'enfermedad' => 'nullable|string|max:255',
+                'comentarios' => 'nullable|string',
+                'dueno_id' => 'required|exists:duenos,id',
+            ]);
 
-        if ($validator->fails()) {
+            if ($validator->fails()) {
+                return response()->json([
+                    'message' => 'Error de validación',
+                    'errors' => $validator->errors()
+                ], 422);
+            }
+
+            $animal = animales::create($validator->validated());
+            
+            return new animalresorce($animal);
+            
+        } catch (Exception $e) {
+            Log::error('Error al crear animal: ' . $e->getMessage());
             return response()->json([
-                'message' => 'Error de validación',
-                'errors' => $validator->errors()
-            ], 422);
+                'message' => 'Error al crear el animal',
+                'error' => $e->getMessage()
+            ], 500);
         }
-
-        $animal = animales::create($validator->validated());
-        
-        return new animalresorce($animal);
     }
 
-    // Esta funcion lo que hace es mostarnos el animales especifico por la ID
-
+    /**
+     * Esta funcion muestra el animal especifico por la ID
+     */
     public function show(string $id)
     {
-        $animal = animales::find($id);
+        try {
+            $animal = animales::find($id);
 
-        if (!$animal) {
+            if (!$animal) {
+                return response()->json([
+                    'message' => 'Animal no encontrado'
+                ], 404);
+            }
+
+            return new animalresorce($animal);
+            
+        } catch (Exception $e) {
+            Log::error('Error al obtener animal: ' . $e->getMessage());
             return response()->json([
-                'message' => 'Animal no encontrado'
-            ], 404);
+                'message' => 'Error al obtener el animal',
+                'error' => $e->getMessage()
+            ], 500);
         }
-
-        return new animalresorce($animal);
     }
 
-    //Esta funcion nos actualiza lso datos del animales
-
+    /**
+     * Esta funcion actualiza los datos del animal
+     */
     public function update(Request $request, string $id)
     {
-        $animal = animales::find($id);
+        try {
+            $animal = animales::find($id);
 
-        if (!$animal) {
+            if (!$animal) {
+                return response()->json([
+                    'message' => 'Animal no encontrado'
+                ], 404);
+            }
+
+            $validator = Validator::make($request->all(), [
+                'nombre' => 'sometimes|required|string|max:25',
+                'tipo' => 'sometimes|required|in:perro,gato,hámster,conejo',
+                'peso' => 'nullable|numeric|min:0',
+                'enfermedad' => 'nullable|string|max:255',
+                'comentarios' => 'nullable|string',
+                'dueno_id' => 'sometimes|required|exists:duenos,id',
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'message' => 'Error de validación',
+                    'errors' => $validator->errors()
+                ], 422);
+            }
+
+            $animal->update($validator->validated());
+
+            return new animalresorce($animal);
+            
+        } catch (Exception $e) {
+            Log::error('Error al actualizar animal: ' . $e->getMessage());
             return response()->json([
-                'message' => 'Animal no encontrado'
-            ], 404);
+                'message' => 'Error al actualizar el animal',
+                'error' => $e->getMessage()
+            ], 500);
         }
-
-        $validator = Validator::make($request->all(), [
-            'nombre' => 'sometimes|required|string|max:25',
-            'tipo' => 'sometimes|required|in:perro,gato,hámster,conejo',
-            'peso' => 'nullable|numeric|min:0',
-            'enfermedad' => 'nullable|string|max:255',
-            'comentarios' => 'nullable|string',
-            'dueno_id' => 'sometimes|required|exists:duenos,id',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'message' => 'Error de validación',
-                'errors' => $validator->errors()
-            ], 422);
-        }
-
-        $animal->update($validator->validated());
-
-        return new animalresorce($animal);
     }
 
-    // En esta funcion eliminamos el animal por su ID
-
+    /**
+     * En esta funcion eliminamos el animal por su ID
+     */
     public function destroy(string $id)
     {
-        $animal = animales::find($id);
+        try {
+            $animal = animales::find($id);
 
-        if (!$animal) {
+            if (!$animal) {
+                return response()->json([
+                    'message' => 'Animal no encontrado'
+                ], 404);
+            }
+
+            $animal->delete();
+
             return response()->json([
-                'message' => 'Animal no encontrado'
-            ], 404);
+                'message' => 'Animal eliminado correctamente'
+            ], 200);
+            
+        } catch (Exception $e) {
+            Log::error('Error al eliminar animal: ' . $e->getMessage());
+            return response()->json([
+                'message' => 'Error al eliminar el animal',
+                'error' => $e->getMessage()
+            ], 500);
         }
-
-        $animal->delete();
-
-        return response()->json([
-            'message' => 'Animal eliminado correctamente'
-        ], 200);
     }
 }
